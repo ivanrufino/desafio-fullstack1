@@ -17,8 +17,8 @@ interface TopProceduresListProps {
 
 export function TopProceduresList({ items }: TopProceduresListProps) {
   return (
-    <Card className="border-none shadow-md">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+    <Card className="w-full min-w-0 border-none shadow-md">
+      <CardHeader className="flex flex-col gap-4 space-y-0 pb-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <CardTitle className="text-lg font-semibold text-slate-800">
             Procedimentos mais executados
@@ -31,8 +31,8 @@ export function TopProceduresList({ items }: TopProceduresListProps) {
           <TrendingUp className="size-5 text-teal-600" />
         </div>
       </CardHeader>
-      <CardContent className="px-0 pb-0">
-        <Table>
+      <CardContent className="w-full px-0 pb-0">
+        <Table className="w-full min-w-full">
           <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead className="pl-6">#</TableHead>

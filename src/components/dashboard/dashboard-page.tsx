@@ -18,6 +18,7 @@ import {
 } from './dashboard-loading'
 import { DashboardSidebar } from './dashboard-sidebar'
 import { IndicatorCard } from './indicator-card'
+import { MobileSidebar } from './mobile-sidebar'
 import { TopProceduresList } from './top-procedures-list'
 
 export function DashboardPage() {
@@ -28,42 +29,48 @@ export function DashboardPage() {
   const metrics = getDashboardMetrics(data)
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen w-full bg-slate-50">
       <ProfileEditSheet />
       <DashboardSidebar />
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="border-b border-slate-200 bg-white px-8 py-5">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl font-bold text-slate-800">
-                Dashboard Hospitalar
-              </h1>
-              <p className="text-sm text-slate-500">
-                Gestão financeira de procedimentos
-              </p>
-            </div>
+      <div className="flex min-w-0 w-full flex-1 flex-col">
+        <header className="border-b border-slate-200 bg-white px-4 py-4 sm:px-6 lg:px-8">
+          <div className="flex items-start gap-3">
+            <MobileSidebar />
 
-            <ProfileEditTrigger className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 hover:bg-slate-100">
-              <Avatar>
-                <AvatarFallback className="bg-teal-100 text-sm font-semibold text-teal-800">
-                  {initials}
-                </AvatarFallback>
-              </Avatar>
-              <div className="text-right sm:text-left">
-                <p className="text-sm font-semibold text-slate-800">{name}</p>
-                <p className="text-xs text-slate-500">{email}</p>
-                <p className="mt-0.5 text-xs text-teal-600">Editar perfil</p>
+            <div className="flex min-w-0 flex-1 flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="min-w-0">
+                <h1 className="text-xl font-bold text-slate-800 sm:text-2xl">
+                  Dashboard Hospitalar
+                </h1>
+                <p className="text-sm text-slate-500">
+                  Gestão financeira de procedimentos
+                </p>
               </div>
-            </ProfileEditTrigger>
+
+              <ProfileEditTrigger className="flex w-full min-w-0 items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 hover:bg-slate-100 sm:w-auto">
+                <Avatar className="shrink-0">
+                  <AvatarFallback className="bg-teal-100 text-sm font-semibold text-teal-800">
+                    {initials}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="min-w-0 flex-1 sm:text-left">
+                  <p className="truncate text-sm font-semibold text-slate-800">
+                    {name}
+                  </p>
+                  <p className="truncate text-xs text-slate-500">{email}</p>
+                  <p className="mt-0.5 text-xs text-teal-600">Editar perfil</p>
+                </div>
+              </ProfileEditTrigger>
+            </div>
           </div>
         </header>
 
-        <main className="flex-1 space-y-8 p-8">
-          <section aria-labelledby="indicators-heading">
+        <main className="w-full flex-1 space-y-6 p-4 sm:space-y-8 sm:p-6 lg:p-8">
+          <section className="w-full" aria-labelledby="indicators-heading">
             <h2
               id="indicators-heading"
-              className="mb-6 text-lg font-semibold text-slate-800"
+              className="mb-4 text-lg font-semibold text-slate-800 sm:mb-6"
             >
               Balanço
             </h2>
@@ -75,7 +82,7 @@ export function DashboardPage() {
                 {error}
               </p>
             ) : (
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+              <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
                 <IndicatorCard
                   title="Total de procedimentos executados"
                   value={String(metrics.totalExecuted)}
@@ -100,7 +107,7 @@ export function DashboardPage() {
             )}
           </section>
 
-          <section aria-labelledby="top-procedures-heading">
+          <section className="w-full" aria-labelledby="top-procedures-heading">
             <h2 id="top-procedures-heading" className="sr-only">
               Procedimentos mais executados
             </h2>

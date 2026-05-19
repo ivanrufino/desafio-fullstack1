@@ -1,6 +1,8 @@
 # Dashboard Hospitalar
 
-Aplicação web para visualização de indicadores financeiros de procedimentos hospitalares, com layout administrativo, identificação do usuário e edição de perfil.
+Aplicação web para visualização de indicadores financeiros de procedimentos hospitalares, com layout administrativo responsivo, identificação do usuário e edição de perfil.
+
+**Repositório:** [https://github.com/ivanrufino/desafio-fullstack1](https://github.com/ivanrufino/desafio-fullstack1)
 
 ## Pré-requisitos
 
@@ -12,8 +14,8 @@ Aplicação web para visualização de indicadores financeiros de procedimentos 
 1. Clone o repositório e entre na pasta do projeto:
 
 ```bash
-git clone <url-do-repositorio>
-cd hospital-dashboard
+git clone https://github.com/ivanrufino/desafio-fullstack1.git
+cd desafio-fullstack1
 ```
 
 2. Instale as dependências:
@@ -44,9 +46,9 @@ pnpm dev
 
 - **Next.js 15** (App Router) — renderização e roteamento
 - **React 19** + **TypeScript** — interface tipada
-- **Tailwind CSS** — estilização utilitária
-- **shadcn/ui** (preset Radix Maia) — componentes acessíveis (Button, Card, Sheet, Input, Avatar, etc.)
-- **Zustand** — estado global do usuário logado
+- **Tailwind CSS** — estilização utilitária e layout responsivo
+- **shadcn/ui** (preset Radix Maia) — componentes acessíveis (Button, Card, Sheet, Input, Avatar, Table, etc.)
+- **Zustand** — estado global do usuário e UI (perfil, menu mobile)
 - **React Hook Form** + **Zod** — formulário de perfil com validação
 - **Sonner** — feedback visual após salvar o perfil
 
@@ -56,32 +58,45 @@ O código segue uma separação simples por responsabilidade:
 
 ```
 src/
-├── app/              # Rotas e layout raiz (Next.js)
+├── app/              # Rotas, layout raiz e API Route (Next.js)
 ├── components/       # UI (dashboard, perfil, shadcn/ui)
 ├── hooks/            # Lógica reutilizável (ex.: useDashboard)
-├── services/         # Acesso a dados (simula API)
+├── services/         # Consumo da API (fetch)
 ├── store/            # Estado global (usuário, UI do perfil)
 ├── schemas/          # Validação Zod
 ├── mock/             # Dados fictícios de procedimentos
 ├── types/            # Tipos TypeScript
-└── lib/              # Utilitários (formatação, cn, iniciais)
+└── lib/              # Utilitários (métricas, formatação, iniciais)
 ```
 
-- **Dados do dashboard**: o `dashboard.service.ts` consome a rota REST `GET /api/procedimentos`, que simula latência (~1,2s) e retorna o JSON em `mock/procedimentos.json`. O hook `useDashboard` expõe lista, loading e erro.
-- **Indicadores (balanço)**: total executado, total rejeitado, soma em reais dos aprovados e dos rejeitados — calculados em `lib/dashboard.ts` e exibidos em cards.
+### Funcionalidades principais
+
+- **Simulação de API REST**: `dashboard.service.ts` faz `fetch` em `GET /api/procedimentos`. A route handler em `src/app/api/procedimentos/route.ts` simula latência (~1,2s) e retorna `mock/procedimentos.json`. O hook `useDashboard` expõe dados, loading e erro.
+
+- **Balanço (indicadores)**:
+  - Total de procedimentos executados
+  - Total de procedimentos rejeitados
+  - Total aprovado (valor em reais)
+  - Total rejeitado (valor em reais)
+
 - **Top 5 procedimentos**: ranking por quantidade de execuções do mesmo nome de procedimento, exibido em tabela.
-- **Layout**: sidebar fixa com links visuais (Relatórios, Configurações, Suporte) sem navegação real; área principal com cabeçalho e grid de indicadores.
-- **Perfil do usuário**: dados fictícios iniciais no `user.store.ts`. A edição abre um painel lateral (Sheet) com validação de nome e senha; o e-mail é somente leitura. Ao salvar, o store é atualizado e a interface (sidebar, cabeçalho, avatar) reflete as mudanças imediatamente.
+
+- **Layout**:
+  - Sidebar fixa no desktop com links visuais (Relatórios, Configurações, Suporte) sem navegação real
+  - No mobile, menu lateral oculto e aberto via botão (Sheet)
+  - Cabeçalho com identificação do usuário logado (dados fictícios)
+
+- **Perfil do usuário**: edição em painel lateral (Sheet) com validação. Nome e senha editáveis; e-mail somente leitura. Alterações refletidas imediatamente na interface via Zustand.
 
 ### Validação do perfil
 
-| Campo            | Regra                                                                 |
-|------------------|-----------------------------------------------------------------------|
-| Nome             | 3–30 caracteres; apenas letras e espaços                              |
-| E-mail           | Exibido; não editável                                                 |
-| Senha            | Opcional; se informada: 8–12 caracteres, letras + números e confirmação |
+| Campo  | Regra                                                                   |
+|--------|-------------------------------------------------------------------------|
+| Nome   | 3–30 caracteres; apenas letras e espaços                                |
+| E-mail | Exibido; não editável                                                   |
+| Senha  | Opcional; se informada: 8–12 caracteres, letras + números e confirmação |
 
 ## Estrutura de telas
 
-- **Dashboard** — indicadores financeiros e identificação do usuário
+- **Dashboard** — balanço financeiro, top 5 procedimentos e identificação do usuário
 - **Editar perfil** — acionado pelo card do usuário, pelo rodapé da sidebar ou pelo item “Configurações”

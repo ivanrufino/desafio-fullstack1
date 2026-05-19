@@ -10,19 +10,24 @@ interface ProfileEditTriggerProps {
   children?: ReactNode
   className?: string
   showIcon?: boolean
+  onOpen?: () => void
 }
 
 export function ProfileEditTrigger({
   children,
   className,
-  showIcon = true
+  showIcon = true,
+  onOpen
 }: ProfileEditTriggerProps) {
-  const open = useProfileUiStore((state) => state.open)
+  const openProfile = useProfileUiStore((state) => state.open)
 
   return (
     <button
       type="button"
-      onClick={open}
+      onClick={() => {
+        openProfile()
+        onOpen?.()
+      }}
       className={cn(
         'text-left transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2',
         className
