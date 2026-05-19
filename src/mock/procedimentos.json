@@ -1,0 +1,146 @@
+[
+  {
+    "id": "1",
+    "patient": "Maria Souza",
+    "procedureName": "Tomografia",
+    "amount": 450,
+    "status": "APROVADO",
+    "createdAt": "2026-05-01"
+  },
+  {
+    "id": "2",
+    "patient": "Carlos Lima",
+    "procedureName": "Raio-X",
+    "amount": 180,
+    "status": "REJEITADO",
+    "createdAt": "2026-05-03"
+  },
+  {
+    "id": "3",
+    "patient": "Fernanda Alves",
+    "procedureName": "Hemograma",
+    "amount": 95,
+    "status": "APROVADO",
+    "createdAt": "2026-05-04"
+  },
+  {
+    "id": "4",
+    "patient": "João Pedro",
+    "procedureName": "Tomografia",
+    "amount": 450,
+    "status": "APROVADO",
+    "createdAt": "2026-05-05"
+  },
+  {
+    "id": "5",
+    "patient": "Ana Costa",
+    "procedureName": "Tomografia",
+    "amount": 450,
+    "status": "REJEITADO",
+    "createdAt": "2026-05-06"
+  },
+  {
+    "id": "6",
+    "patient": "Ricardo Mendes",
+    "procedureName": "Raio-X",
+    "amount": 180,
+    "status": "APROVADO",
+    "createdAt": "2026-05-07"
+  },
+  {
+    "id": "7",
+    "patient": "Patrícia Rocha",
+    "procedureName": "Ressonância Magnética",
+    "amount": 1200,
+    "status": "APROVADO",
+    "createdAt": "2026-05-08"
+  },
+  {
+    "id": "8",
+    "patient": "Lucas Ferreira",
+    "procedureName": "Hemograma",
+    "amount": 95,
+    "status": "APROVADO",
+    "createdAt": "2026-05-09"
+  },
+  {
+    "id": "9",
+    "patient": "Beatriz Nunes",
+    "procedureName": "Ultrassom",
+    "amount": 320,
+    "status": "REJEITADO",
+    "createdAt": "2026-05-10"
+  },
+  {
+    "id": "10",
+    "patient": "Marcos Oliveira",
+    "procedureName": "Raio-X",
+    "amount": 180,
+    "status": "APROVADO",
+    "createdAt": "2026-05-11"
+  },
+  {
+    "id": "11",
+    "patient": "Camila Dias",
+    "procedureName": "Tomografia",
+    "amount": 450,
+    "status": "APROVADO",
+    "createdAt": "2026-05-12"
+  },
+  {
+    "id": "12",
+    "patient": "Eduardo Santos",
+    "procedureName": "Eletrocardiograma",
+    "amount": 150,
+    "status": "APROVADO",
+    "createdAt": "2026-05-13"
+  },
+  {
+    "id": "13",
+    "patient": "Juliana Martins",
+    "procedureName": "Hemograma",
+    "amount": 95,
+    "status": "REJEITADO",
+    "createdAt": "2026-05-14"
+  },
+  {
+    "id": "14",
+    "patient": "Felipe Araujo",
+    "procedureName": "Raio-X",
+    "amount": 180,
+    "status": "REJEITADO",
+    "createdAt": "2026-05-15"
+  },
+  {
+    "id": "15",
+    "patient": "Larissa Gomes",
+    "procedureName": "Ressonância Magnética",
+    "amount": 1200,
+    "status": "APROVADO",
+    "createdAt": "2026-05-16"
+  },
+  {
+    "id": "16",
+    "patient": "Bruno Carvalho",
+    "procedureName": "Ultrassom",
+    "amount": 320,
+    "status": "APROVADO",
+    "createdAt": "2026-05-17"
+  },
+  {
+    "id": "17",
+    "patient": "Helena Pires",
+    "procedureName": "Tomografia",
+    "amount": 450,
+    "status": "APROVADO",
+    "createdAt": "2026-05-18"
+  },
+  {
+    "id": "18",
+    "patient": "Gustavo Ribeiro",
+    "procedureName": "Colonoscopia",
+    "amount": 890,
+    "status": "APROVADO",
+    "createdAt": "2026-05-19"
+  }
+]

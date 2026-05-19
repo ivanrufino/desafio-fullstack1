@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dashboard Hospitalar
 
-## Getting Started
+Aplicação web para visualização de indicadores financeiros de procedimentos hospitalares, com layout administrativo, identificação do usuário e edição de perfil.
 
-First, run the development server:
+## Pré-requisitos
+
+- [Node.js](https://nodejs.org/) 18.18 ou superior
+- [pnpm](https://pnpm.io/) (recomendado) — ou npm / yarn
+
+## Instalação e execução
+
+1. Clone o repositório e entre na pasta do projeto:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <url-do-repositorio>
+cd hospital-dashboard
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instale as dependências:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Inicie o servidor de desenvolvimento:
 
-## Learn More
+```bash
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. Acesse no navegador: [http://localhost:3000](http://localhost:3000)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Outros comandos
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Comando        | Descrição                          |
+|----------------|------------------------------------|
+| `pnpm build`   | Gera a versão de produção          |
+| `pnpm start`   | Sobe o app após o build            |
+| `pnpm lint`    | Executa o ESLint                   |
 
-## Deploy on Vercel
+## Abordagem utilizada
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Next.js 15** (App Router) — renderização e roteamento
+- **React 19** + **TypeScript** — interface tipada
+- **Tailwind CSS** — estilização utilitária
+- **shadcn/ui** (preset Radix Maia) — componentes acessíveis (Button, Card, Sheet, Input, Avatar, etc.)
+- **Zustand** — estado global do usuário logado
+- **React Hook Form** + **Zod** — formulário de perfil com validação
+- **Sonner** — feedback visual após salvar o perfil
+
+### Arquitetura
+
+O código segue uma separação simples por responsabilidade:
+
+```
+src/
+├── app/              # Rotas e layout raiz (Next.js)
+├── components/       # UI (dashboard, perfil, shadcn/ui)
+├── hooks/            # Lógica reutilizável (ex.: useDashboard)
+├── services/         # Acesso a dados (simula API)
+├── store/            # Estado global (usuário, UI do perfil)
+├── schemas/          # Validação Zod
+├── mock/             # Dados fictícios de procedimentos
+├── types/            # Tipos TypeScript
+└── lib/              # Utilitários (formatação, cn, iniciais)
+```
+
+- **Dados do dashboard**: o `dashboard.service.ts` consome a rota REST `GET /api/procedimentos`, que simula latência (~1,2s) e retorna o JSON em `mock/procedimentos.json`. O hook `useDashboard` expõe lista, loading e erro.
+- **Indicadores (balanço)**: total executado, total rejeitado, soma em reais dos aprovados e dos rejeitados — calculados em `lib/dashboard.ts` e exibidos em cards.
+- **Top 5 procedimentos**: ranking por quantidade de execuções do mesmo nome de procedimento, exibido em tabela.
+- **Layout**: sidebar fixa com links visuais (Relatórios, Configurações, Suporte) sem navegação real; área principal com cabeçalho e grid de indicadores.
+- **Perfil do usuário**: dados fictícios iniciais no `user.store.ts`. A edição abre um painel lateral (Sheet) com validação de nome e senha; o e-mail é somente leitura. Ao salvar, o store é atualizado e a interface (sidebar, cabeçalho, avatar) reflete as mudanças imediatamente.
+
+### Validação do perfil
+
+| Campo            | Regra                                                                 |
+|------------------|-----------------------------------------------------------------------|
+| Nome             | 3–30 caracteres; apenas letras e espaços                              |
+| E-mail           | Exibido; não editável                                                 |
+| Senha            | Opcional; se informada: 8–12 caracteres, letras + números e confirmação |
+
+## Estrutura de telas
+
+- **Dashboard** — indicadores financeiros e identificação do usuário
+- **Editar perfil** — acionado pelo card do usuário, pelo rodapé da sidebar ou pelo item “Configurações”
